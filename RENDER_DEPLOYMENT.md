@@ -67,7 +67,7 @@ This guide walks through deploying both the frontend and backend of the TMS appl
 
 4. Add the environment variable:
 
-   - `NEXT_PUBLIC_BACKEND_API_URL`: [Your backend service URL]
+   - `NEXT_PUBLIC_API_URL`: [Your backend service URL]
    - `NODE_VERSION`: 18.12.0
 
 5. Click "Create Web Service"
