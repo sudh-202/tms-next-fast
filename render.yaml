@@ -1,0 +1,43 @@
+services:
+  # Backend service
+  - type: web
+    name: tms-backend
+    env: python
+    region: ohio
+    plan: free
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+    disk:
+      name: sqlite-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: RENDER
+        value: false # Set to false to use SQLite even on Render
+      - key: PYTHON_VERSION
+        value: 3.10.0
+
+  # Frontend service
+  - type: web
+    name: tms-frontend
+    env: node
+    region: ohio
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.12.0
+      - key: NEXT_PUBLIC_BACKEND_API_URL
+        fromService:
+          name: tms-backend
+          type: web
+          property: url
+# We're not using PostgreSQL anymore
+# databases:
+#   - name: tms-db
+#     plan: free
+#     region: ohio
+#     databaseName: tms
+#     user: tms_user
+#     ipAllowList: []
