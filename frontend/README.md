@@ -36,6 +36,10 @@ frontend/
 ├── app/                   # Next.js App Router
 │   ├── api/               # API routes
 │   ├── components/        # Shared components
+│   │   ├── ui/            # UI components
+│   │   ├── tasks/         # Task-related components
+│   │   ├── projects/      # Project-related components
+│   │   └── notifications/ # Notification components
 │   ├── ...                # Page routes
 ├── public/                # Static assets
 ├── styles/                # Global styles
@@ -58,8 +62,10 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 - TypeScript for type safety
 - Tailwind CSS for styling
 - Responsive design
-- Authentication system
-- Task management interface
+- Task management interface with kanban-like status tracking
+- Project organization with custom icons and status tracking
+- Real-time notifications for task and project activities
+- Status filters and sorting options
 
 ## Connecting to the Backend
 

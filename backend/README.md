@@ -4,6 +4,7 @@ This is the FastAPI backend for the TMS (Task Management System) application.
 
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-CC2927?style=for-the-badge&logo=sqlite&logoColor=white)
 
 ## Setup
 
@@ -42,23 +43,31 @@ API documentation will be available at:
 - http://localhost:8000/docs (Swagger UI)
 - http://localhost:8000/redoc (ReDoc)
 
+## Data Models
+
+The backend implements the following data models:
+
+### Task
+
+- Properties: id, title, description, status, dueDate, completed, projectId
+- Status values: TODO, IN_PROGRESS, REVIEW, DONE
+
+### Project
+
+- Properties: id, title, description, dueDate, status, icon
+- Status values: PLANNING, ACTIVE, COMPLETED, ON_HOLD
+
+### Notification
+
+- Properties: id, title, message, type, read, taskId, projectId
+- Type values: INFO, WARNING, SUCCESS, ERROR
+
 ## Current API Endpoints
 
-The backend currently provides the following API endpoints:
+The backend provides the following API endpoints:
 
 - `GET /` - Root endpoint that returns a welcome message
 - `GET /api/health` - Health check endpoint
-
-## Future Development
-
-To expand the backend, you'll need to:
-
-1. Create database models
-2. Set up database connection
-3. Implement task-related endpoints
-4. Implement authentication
-
-We plan to add the following endpoints in the future:
 
 ### Tasks
 
@@ -75,3 +84,22 @@ We plan to add the following endpoints in the future:
 - `GET /api/projects/{id}` - Get a specific project
 - `PUT /api/projects/{id}` - Update a project
 - `DELETE /api/projects/{id}` - Delete a project
+
+### Notifications
+
+- `GET /api/notifications` - Get notifications with options for limit and read status
+- `POST /api/notifications` - Create a new notification
+- `PUT /api/notifications/{id}/read` - Mark a specific notification as read
+- `PUT /api/notifications/read-all` - Mark all notifications as read
+
+## Automatic Notifications
+
+The backend automatically generates notifications for various events:
+
+- Task creation
+- Task status changes
+- Task completion
+- Task deletion
+- Project creation
+- Project status changes
+- Project deletion

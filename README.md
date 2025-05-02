@@ -14,6 +14,11 @@ TMS is a task management system with the following features:
 - Create, view, edit, and delete tasks
 - Organize tasks into projects
 - Track task status and due dates
+- Notifications system for task and project activities
+- Multiple status options for tasks (TODO, IN_PROGRESS, REVIEW, DONE)
+- Project status tracking (PLANNING, ACTIVE, COMPLETED, ON_HOLD)
+- Task completion tracking
+- Custom project icons
 - Responsive UI for desktop and mobile
 - Local development with SQLite
 - Production deployment with PostgreSQL
@@ -24,7 +29,7 @@ TMS is a task management system with the following features:
 tms/
 ├── backend/             # FastAPI backend
 │   ├── database.py      # Database connection
-│   ├── models.py        # Database models
+│   ├── models.py        # Database models (Tasks, Projects, Notifications)
 │   ├── main.py          # API routes and app setup
 │   └── requirements.txt # Python dependencies
 │
@@ -34,6 +39,7 @@ tms/
 │   ├── lib/             # Utility functions
 │   └── package.json     # Node.js dependencies
 │
+├── docs/                # Documentation
 └── render.yaml          # Render.com deployment configuration
 ```
 

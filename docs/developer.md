@@ -90,6 +90,68 @@ async def get_tasks(current_user: User = Depends(get_current_user)):
     return await task_service.get_tasks_by_user(current_user.id)
 ```
 
+## Task Status Workflow
+
+Tasks move through a defined workflow represented by the following statuses:
+
+1. **TODO** - Task is created but work has not started
+2. **IN_PROGRESS** - Work on the task has begun
+3. **REVIEW** - Task is completed and awaiting review
+4. **DONE** - Task is completely finished
+
+The frontend UI represents this workflow as a kanban-like board, allowing easy visualization of task progress.
+
+## Project Status Management
+
+Projects can have the following statuses:
+
+1. **PLANNING** - Project is in the planning phase
+2. **ACTIVE** - Project is currently active and work is being done
+3. **ON_HOLD** - Project is temporarily paused
+4. **COMPLETED** - Project is finished
+
+Project status changes are tracked and displayed in the notification system.
+
+## Notification System
+
+The application includes a real-time notification system that alerts users to important events:
+
+### Notification Types
+
+- **INFO** - General information notifications (blue)
+- **SUCCESS** - Success notifications (green)
+- **WARNING** - Warning notifications (yellow/orange)
+- **ERROR** - Error notifications (red)
+
+### Events that Generate Notifications
+
+- Task creation
+- Task status updates
+- Task completion
+- Task deletion
+- Project creation
+- Project status changes
+- Project deletion
+
+### Notification API Endpoints
+
+```python
+# Get recent notifications
+@app.get("/api/notifications", response_model=List[Notification])
+def get_notifications(limit: int = 10, include_read: bool = False, db: Session = Depends(get_db)):
+    """Get recent notifications with options to limit count and filter by read status"""
+
+# Mark notification as read
+@app.put("/api/notifications/{notification_id}/read", response_model=Notification)
+def mark_notification_as_read(notification_id: str, db: Session = Depends(get_db)):
+    """Mark a specific notification as read"""
+
+# Mark all notifications as read
+@app.put("/api/notifications/read-all")
+def mark_all_notifications_as_read(db: Session = Depends(get_db)):
+    """Mark all notifications as read"""
+```
+
 ## Authentication Flow
 
 1. User submits login credentials to `/api/auth/login`
